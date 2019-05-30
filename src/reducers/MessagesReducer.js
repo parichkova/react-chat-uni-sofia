@@ -4,7 +4,7 @@ export default function (state = [], action) {
         case 'TEXT_MESSAGE':
             return [...state, action.message];
         case 'GET_HISTORY':
-            return action.message;
+            return [...state, ...action.message]
         default:
     }
     return state;

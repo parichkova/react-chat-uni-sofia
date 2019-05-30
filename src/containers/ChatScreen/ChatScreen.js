@@ -13,7 +13,7 @@ import RaisedButton from 'material-ui/RaisedButton';
 import TextField from 'material-ui/TextField';
 
 import { connect } from 'react-redux';
-import { userJoined, userJoinedAck, userLeft, messageReceived } from './../../actions/index';
+import { userJoined, userJoinedAck, userLeft, messageReceived, loadHistory } from './../../actions/index';
 import { bindActionCreators } from 'redux';
 
 class ChatScreen extends Component {
@@ -27,7 +27,7 @@ class ChatScreen extends Component {
   }
 
   render() {
-    const modalActions = [ 
+    const modalActions = [
       <RaisedButton
         label="Choose Name"
         primary={true}
@@ -43,24 +43,24 @@ class ChatScreen extends Component {
 
     return (
       <MuiThemeProvider>
-            <div>
-            <UserList users={this.state.users} />
-                {chat}
-                <Dialog
-                    title="Choose your name"
-                    actions={modalActions}
-                    modal={true}
-                    open={this.state.modalOpen}
-                    contentStyle={modalStyle}>
-                    <TextField
-                    autoFocus
-                    hintText={this.state.name ? this.state.name : 'Write your text here'}
-                    value={this.state.usernameInput}
-                    onChange={(event) => this.updateInputValue(event.target.value)}
-                    onKeyPress={this.handleKeyPress}
-                    />
-                </Dialog>
-            </div>
+        <div>
+          <UserList users={this.state.users} />
+          {chat}
+          <Dialog
+            title="Choose your name"
+            actions={modalActions}
+            modal={true}
+            open={this.state.modalOpen}
+            contentStyle={modalStyle}>
+            <TextField
+              autoFocus
+              hintText={this.state.name ? this.state.name : 'Write your text here'}
+              value={this.state.usernameInput}
+              onChange={(event) => this.updateInputValue(event.target.value)}
+              onKeyPress={this.handleKeyPress}
+            />
+          </Dialog>
+        </div>
       </MuiThemeProvider>
     );
   }
@@ -76,20 +76,27 @@ class ChatScreen extends Component {
       switch (message.type) {
         case MessageType.TEXT_MESSAGE:
           self.props.messageReceived(message);
+
           break;
         case MessageType.USER_JOINED:
-          users = JSON.parse(message.data);
-          self.props.userJoined(users);
+          self.props.userJoined(JSON.parse(message.data));
+
           break;
         case MessageType.USER_LEFT:
-          users = JSON.parse(message.data);
-          self.props.userLeft(users);
+          self.props.userLeft(JSON.parse(message.data));
+
+          break;
+        case MessageType.GET_HISTORY:
+          debugger;
+          self.props.loadHistory(JSON.parse(message.data));
+
           break;
         case MessageType.USER_JOINED_ACK:
-          let thisUser = message.user;
-          self.props.userJoinedAck(thisUser);
+          self.props.userJoinedAck(message.user);
+
           break;
         default:
+          console.log('default')
       }
     }
 
@@ -135,10 +142,11 @@ function mapStateToProps(state) {
 
 function mapDispatchToProps(dispatch, props) {
   return bindActionCreators({
-    userJoined: userJoined,
-    userJoinedAck: userJoinedAck,
-    userLeft: userLeft,
-    messageReceived: messageReceived
+    userJoined,
+    userJoinedAck,
+    userLeft,
+    messageReceived,
+    loadHistory,
   }, dispatch);
 }
 

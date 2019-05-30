@@ -36,7 +36,6 @@ class Chat extends Component {
                     label="History"
                     primary={true}
                     onClick={this.loadHistory.bind(this)} />
-                <FilePond />
             </div>
         );
     }
@@ -44,7 +43,8 @@ class Chat extends Component {
     loadHistory() {
         const socket = Singleton.getInstance();
         let messageDto = JSON.stringify({ user: this.props.thisUser, data: '', type: MessageType.GET_HISTORY });
-
+        
+        debugger;
         socket.send(messageDto);
     }
 

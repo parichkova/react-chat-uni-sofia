@@ -57,3 +57,11 @@ export function openModal() {
         type: 'OPEN_MODAL',
     }
 }
+
+export function loadHistory(messages) {
+    debugger;
+    return {
+        type: 'GET_HISTORY',
+        message: messages
+    }
+}
