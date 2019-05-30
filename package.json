@@ -1,0 +1,27 @@
+{
+  "name": "chat-client",
+  "version": "0.1.0",
+  "private": true,
+  "homepage": "https://jasofalcon.github.io/chat-ws-client",
+  "dependencies": {
+    "material-ui": "^0.19.4",
+    "material-ui-icons": "^1.0.0-beta.17",
+    "react": "^16.1.1",
+    "react-dom": "^16.1.1",
+    "react-redux": "^5.0.6",
+    "react-scripts": "1.0.17",
+    "redux": "^3.7.2"
+  },
+  "scripts": {
+    "start": "react-scripts start",
+    "build": "react-scripts build",
+    "test": "react-scripts test --env=jsdom",
+    "eject": "react-scripts eject",
+    "predeploy": "npm run build",
+    "deploy": "gh-pages -d build"
+  },
+  "devDependencies": {
+    "axios": "^0.18.0",
+    "react-github-login": "^1.0.3"
+  }
+}
