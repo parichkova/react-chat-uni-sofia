@@ -1,8 +1,8 @@
 
 const AppConfig = {
-    PROTOCOL: "wss:",
+    PROTOCOL: "ws:",
     // TODO: change to localhost if you wish to run it locally
-    HOST: "//serene-wave-94653.herokuapp.com",
+    HOST: "//ec2-54-152-175-228.compute-1.amazonaws.com",
     PORT: ":9000"
 }
 
@@ -11,7 +11,7 @@ const Singleton = (function () {
 
     function createInstance() {
         // TODO: add +  PORT if you want to run it locally
-        const socket = new WebSocket(AppConfig.PROTOCOL + AppConfig.HOST);
+        const socket = new WebSocket(AppConfig.PROTOCOL + AppConfig.HOST+ AppConfig.PORT);
         return socket;
     }
 
